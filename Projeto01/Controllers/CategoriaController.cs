@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Projeto01.Context;
+using System.Net;
 
 namespace Projeto01.Controllers
 {
@@ -39,10 +40,10 @@ namespace Projeto01.Controllers
         // GET: Categoria
         public ActionResult Index()
         {
-            return View(Context.Categorias.OrderBy(c => c.Nome));
+            return View(Context.Categorias.ToList());
         }
 
-        //Get:
+        //Get:Categoria/Create
         public ActionResult Create() {
             return View();
         }
@@ -51,36 +52,83 @@ namespace Projeto01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Categoria categoria)
         {
-            categoria.CategoriaId = Context.Categorias.Select(c => c.CategoriaId).Max() + 1; 
+            if (categoria == null)
+            {
+                return HttpNotFound();     
+            }
             Context.Categorias.Add(categoria);
+            Context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(long id) {
-            return View(Context.Categorias.Where(m => m.CategoriaId == id).First());
+        public ActionResult Edit(long? id) {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Categoria categoria = Context.Categorias.Find(id);
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+            return View(categoria);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Categoria categoria)
         {
-            Context.Categorias.Remove(Context.Categorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
-            Context.Categorias.Add(categoria);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                Context.Entry(categoria).State = System.Data.Entity.EntityState.Modified;
+                Context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(categoria);
+            
         }
 
-        public ActionResult Details(long id) {
-            return View(Context.Categorias.Where(m => m.CategoriaId == id).First());
+        public ActionResult Details(long? id) {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Categoria categoria = Context.Categorias.Find(id);
+            if(categoria == null)
+            {
+                return HttpNotFound();
+            }
+            return View(categoria);
         }
 
-        public ActionResult Delete(long id) {
-            return View(Context.Categorias.Where(m => m.CategoriaId == id).First());
+        public ActionResult Delete(long? id) {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Categoria categoria = Context.Categorias.Find(id);
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+            return View(categoria);
         }
 
         [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Categoria categoria) {
-            Context.Categorias.Remove(Context.Categorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
+        public ActionResult DeleteConfirmed(long? id) {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Categoria cat = Context.Categorias.Find(id); 
+            if (cat == null)
+            {
+                return HttpNotFound();    
+            }
+            Context.Categorias.Remove(cat);
+            Context.SaveChanges();
             return RedirectToAction("Index");
         }
 

@@ -9,7 +9,7 @@ namespace Projeto01.Context
 
         public DbSet<Categoria> Categorias { get; set; }
 
-        public DbSet<Fabricante> Facricantes { get; set; }
+        public DbSet<Fabricante> Fabricantes{ get; set; }
 
     }
 }
