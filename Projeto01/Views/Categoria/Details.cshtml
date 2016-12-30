@@ -1,0 +1,31 @@
+﻿@model Projeto01.Models.Categoria
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detailhes</title>
+</head>
+<body>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Nome:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.CategoriaId }) |
+        @Html.ActionLink("Voltar para lista", "Index")
+    </p>
+</body>
+</html>
