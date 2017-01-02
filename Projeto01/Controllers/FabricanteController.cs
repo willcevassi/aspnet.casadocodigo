@@ -36,6 +36,7 @@ namespace Projeto01.Controllers
             }
             contexto.Fabricantes.Add(fabricante);
             contexto.SaveChanges();
+            TempData["Message"] = "Fabricante	" + fabricante.Nome.ToUpper() + "	incluído com sucesso";
             return RedirectToAction("Index");
         }
 
@@ -62,6 +63,7 @@ namespace Projeto01.Controllers
             {
                 contexto.Entry(fabricante).State = System.Data.Entity.EntityState.Modified;
                 contexto.SaveChanges();
+                TempData["Message"] = "Fabricante	" + fabricante.Nome.ToUpper() + "	alterado com sucesso";
                 return RedirectToAction("Index");
             }
             return View(fabricante);
@@ -114,6 +116,8 @@ namespace Projeto01.Controllers
             }
             contexto.Fabricantes.Remove(toDelete);
             contexto.SaveChanges();
+            //incluindo os dados do fabricante removida ao TEMPDATA para recuperação da View de Listagem (Index)
+            TempData["Message"] = "Fabricante	" + toDelete.Nome.ToUpper() + "	removido com sucesso";
             return RedirectToAction("Index");
         }
     }
