@@ -1,7 +1,7 @@
-﻿@model	Projeto01.Models.Fabricante
+﻿@model	Projeto01.Models.Produto
 @{				
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Editar FABRICANTE"; 
+    ViewBag.Title = "Editar Produto"; 
 }
 
 @using (Html.BeginForm())
@@ -9,20 +9,36 @@
     @Html.AntiForgeryToken()
     <div class="panel	panel-primary">
         <div class="panel-heading">	
-            Editar FABRICANTE
+            Editar PRODUTO
         </div>
     	<div class="panel-body">
             <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })																@Html.HiddenFor(model => model.FabricanteId)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })																
+                @Html.HiddenFor(model => model.ProdutoId)
                 <div class="form-group">	
                     @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label	col-md-2" })	
-                <div class="col-md-10">																								
-                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })	
-                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })		
-                </div>			
-                
-            </div>
-        </div>
+                    <div class="col-md-10">																								
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })	
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })		
+                    </div>			
+                </div>
+                <div class="form-group">
+                    <label class="control-label	col-md-2" for="CategoriaId">Categoria</label>
+                	<div class="col-md-10">	
+                        @Html.DropDownList("CategoriaId", null, htmlAttributes: new { @class = "form-control" })	
+                    	@Html.ValidationMessageFor(model => model.CategoriaId, "", new { @class = "text-danger" })		
+                    </div>	
+                </div>
+                <div class="form-group">
+                    <label class="control-label	col-md-2" for="FabricanteId">Fabricante</label>
+                    <div class="col-md-10">
+                        @Html.DropDownList("FabricanteId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CategoriaId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+         </div>
         <div class="panel-footer panel-info">
                 <div>
                     <input type="submit" value="Salvar" class="btn	btn-success" /> |

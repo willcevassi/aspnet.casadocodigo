@@ -9,13 +9,33 @@
     </div>				
     <div class="panel-body">
         <div class="form-group">
-            @Html.LabelFor(model => model.Nome)	
+            <label for="Nome">Nome do Produto</label>
             <br />		
         	<div class="input-group">
                 <span class="input-group-addon">
-                    <i class="glyphicon	glyphicon-user"></i>	
+                    <i class="glyphicon	glyphicon-font"></i>	
                 </span>		
-            	@Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })	
+            	@Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Nome">Fabricante</label>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon	glyphicon-home"></i>
+                </span>
+                @Html.EditorFor(model => model.Fabricante.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Nome">Categoria</label>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon	glyphicon-bookmark"></i>
+                </span>
+                @Html.EditorFor(model => model.Categoria.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
             </div>
         </div>
     </div>

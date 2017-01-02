@@ -23,7 +23,9 @@ namespace Projeto01.Models
         [Column("categoria_id")]
         public long? CategoriaId { get; set; }
 
+        [Display(Name = "Fabricante")]
         public virtual Fabricante Fabricante { get; set; }
+        [Display(Name = "Categoria")]
         public virtual Categoria Categoria { get; set; }
     }
 }

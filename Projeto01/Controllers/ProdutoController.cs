@@ -27,7 +27,7 @@ namespace Projeto01.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = Contexto.Produtos.Find(id);
+            Produto produto = Contexto.Produtos.Where(p => p.ProdutoId == id).First();
             if (produto == null)
             {
                 return HttpNotFound();
@@ -38,6 +38,8 @@ namespace Projeto01.Controllers
         // GET: Produto/Create
         public ActionResult Create()
         {
+            ViewBag.categoriaId = new SelectList(Contexto.Categorias.OrderBy(c => c.Nome),"CategoriaId","Nome");
+            ViewBag.fabricanteId = new SelectList(Contexto.Fabricantes.OrderBy(c => c.Nome), "FabricanteId", "Nome");
             return View();
         }
 
@@ -65,6 +67,9 @@ namespace Projeto01.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Produto produto = Contexto.Produtos.Find(id);
+            ViewBag.CategoriaId = new SelectList(Contexto.Categorias.OrderBy(b => b.Nome), "CategoriaId", "Nome", produto.CategoriaId);
+            ViewBag.FabricanteId = new SelectList(Contexto.Fabricantes.OrderBy(b => b.Nome), "FabricanteId", "Nome", produto.FabricanteId);
+           
             if (produto == null)
             {
                 return HttpNotFound();
