@@ -17,5 +17,7 @@ namespace Projeto01.Models
         [StringLength(80,ErrorMessage = "Tammanho máximo de 80 caracteres excedido.")]
         [Required(ErrorMessage = "O Nome da categoria é obrigatório")]
         public string Nome { get; set; }
+
+        public virtual ICollection<Produto> Produtos { get; set; }
     }
 }
