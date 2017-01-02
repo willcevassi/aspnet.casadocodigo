@@ -1,26 +1,26 @@
-﻿@model	IEnumerable<Projeto01.Models.Fabricante>
+﻿@model	IEnumerable<Projeto01.Models.Produto>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Listagem de FABRICANTES";
+    ViewBag.Title = "Listagem de PRODUTOS";
 }
 
 @if (@TempData["Message"] != null)
-{	
+{
     <div class="alert	alert-success" role="alert">
-        @TempData["Message"]	
-    </div> 
+        @TempData["Message"]
+    </div>
 }
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        FABRICANTES	Cadastrados
+        PRODUTOS Cadastrados
     </div>
     <div class="panel-body">
         <table class="table	table-striped table-hover">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.FabricanteId)
+                        @Html.DisplayNameFor(model   => model.ProdutoId)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Nome)
@@ -33,29 +33,29 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FabricanteId)
+                            @Html.DisplayFor(modelItem => item.ProdutoId)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
-                            @Html.ActionLink("Alterar", "Edit", new { id = item.FabricanteId })	|
-                            @Html.ActionLink("Detalhes", "Details", new { id = item.FabricanteId })	|
-                            @Html.ActionLink("Excluir", "Delete", new { id = item.FabricanteId })
+                            @Html.ActionLink("Alterar", "Edit", new { id = item.ProdutoId })	|
+                            @Html.ActionLink("Detalhes", "Details", new { id = item.ProdutoId })	|
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.ProdutoId })
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>				
+    </div>
     <div class="panel-footer panel-info">
         @Html.ActionLink("Novo", "Create", null, new { @class = "btn	btn-success" })
     </div>
 
 </div>
 
-@section styles{		
-    <link href="@Url.Content("~/Content/DataTables/css/dataTables.bootstrap.css")" rel="stylesheet" /> 
+@section styles{
+    <link href="@Url.Content("~/Content/DataTables/css/dataTables.bootstrap.css")" rel="stylesheet" />
 }
 
 @section ScriptPage	{
@@ -64,7 +64,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('li').removeClass("active");
-            $('#liFabricantes').addClass("active");
+            $('#liProdutos').addClass("active");
             $('.table').DataTable(
             {
                 "language": {
@@ -82,12 +82,12 @@
                 "order": [[1, "asc"]],
             });
         });
-    </script> 
+    </script>
 }
 
 
 
- 
+
 
 
 

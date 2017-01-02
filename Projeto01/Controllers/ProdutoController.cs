@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Projeto01.Context;
+using Projeto01.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,16 +11,28 @@ namespace Projeto01.Controllers
 {
     public class ProdutoController : Controller
     {
+        private EFContext Contexto = new EFContext();
+
+
         // GET: Produto
         public ActionResult Index()
         {
-            return View();
+            return View(Contexto.Produtos.OrderBy(P => P.Nome));
         }
 
         // GET: Produto/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Produto produto = Contexto.Produtos.Find(id);
+            if (produto == null)
+            {
+                return HttpNotFound();
+            }
+            return View(produto);
         }
 
         // GET: Produto/Create
@@ -28,62 +43,91 @@ namespace Projeto01.Controllers
 
         // POST: Produto/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Produto produto)
         {
-            try
+            if (produto == null)
             {
-                // TODO: Add insert logic here
+                return HttpNotFound();     
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Contexto.Produtos.Add(produto);
+            Contexto.SaveChanges();
+            TempData["Message"] = "Produto	" + produto.Nome.ToUpper() + "	incluído com sucesso";
+            return RedirectToAction("Index");
         }
 
         // GET: Produto/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Produto produto = Contexto.Produtos.Find(id);
+            if (produto == null)
+            {
+                return HttpNotFound();
+            }
+            return View(produto);
         }
 
         // POST: Produto/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Produto produto)
         {
-            try
+            if (produto == null)
             {
-                // TODO: Add update logic here
-
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (ModelState.IsValid)
+            {
+                Contexto.Entry(produto).State = System.Data.Entity.EntityState.Modified;
+                Contexto.SaveChanges();
+                TempData["Message"] = "Produto	" + produto.Nome.ToUpper() + "	alterado com sucesso";
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(produto);
+                
+            
+
         }
 
         // GET: Produto/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Produto produto = Contexto.Produtos.Find(id);
+            if (produto == null)
+            {
+                return HttpNotFound();     
+            }
+            return View(produto);
         }
 
         // POST: Produto/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(long? id)
         {
-            try
+            if (id == null)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            catch
+            Produto toDelete = Contexto.Produtos.Find(id);
+            if (toDelete == null)
             {
-                return View();
+                return HttpNotFound();
             }
+            Contexto.Produtos.Remove(toDelete);
+            Contexto.SaveChanges();
+            //incluindo os dados do fabricante removida ao TEMPDATA para recuperação da View de Listagem (Index)
+            TempData["Message"] = "Produto	" + toDelete.Nome.ToUpper() + "	removido com sucesso";
+            return RedirectToAction("Index");
         }
     }
 }
