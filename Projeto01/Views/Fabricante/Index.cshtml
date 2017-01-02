@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Listagem de FABRICANTES";
 }
-
 <div class="panel panel-primary">
     <div class="panel-heading">
         FABRICANTES	Cadastrados
@@ -47,13 +46,38 @@
 
 </div>
 
-<link href="@Url.Content("~/Content/DataTables/css/dataTables.bootstrap.css")" rel="stylesheet" /> 
-<script src="@Url.Content("~/Scripts/DataTables/jquery.dataTables.js")"></script>
-<script src="@Url.Content("~/Scripts/DataTables/dataTables.bootstrap.js")"></script>
+@section styles{		
+    <link href="@Url.Content("~/Content/DataTables/css/dataTables.bootstrap.css")" rel="stylesheet" /> 
+}
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.table').dataTable();
-    });
-</script> 
+@section ScriptPage	{
+    <script src="@Url.Content("~/scripts/DataTables/jquery.DataTables.js")"></script>
+    <script src="@Url.Content("~/scripts/DataTables/dataTables.bootstrap.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.table').DataTable(
+            {
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+                },
+
+                "columnDefs": [
+                    {
+                        "targets": [ 0 ],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+
+                "order": [[1, "asc"]],
+            });
+        });
+    </script> 
+}
+
+
+
+ 
+
+
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/content/bootstrap.css")" rel="stylesheet" />
+    @RenderSection("styles", false)
 </head>
 <body>
     <div class="container">
@@ -24,7 +25,6 @@
                 </ul>	
             </div>
         	<div class="col-xs-9	col-md-9">
-                <br />
             	@RenderBody()
             </div>
         </div>
@@ -37,9 +37,7 @@
         </div>
         <script src="@Url.Content("~/scripts/jquery-1.10.2.js")"></script>
         <script src="@Url.Content("~/scripts/bootstrap.js")"></script>
+        @RenderSection("ScriptPage", false);
     </body>
 
-    @*<div>
-        @RenderBody()
-    </div>*@
 </html>
