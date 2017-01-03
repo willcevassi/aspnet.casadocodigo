@@ -5,5 +5,7 @@
         //TODO: Implementar as VIEWS de Categoria utilizando bootstrap.
 
         //TODO: Implementar a parte do "INCLUDE" no Controller de Produtos.
+
+        //TODO: Implementar Modal para exclusao de Categorias e Fabricantes.
     }
 }
