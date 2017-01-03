@@ -35,8 +35,18 @@
                 @Html.EditorFor(model => model.Fabricante.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
             </div>
         </div>
-    </div>				
-    <div class="panel-footer	panel-info">	
+    </div>	
+    
+    <div class="panel-footer	panel-info">
+        <a href="#" class="btn	btn-danger" data-toggle="modal" data-target="#deleteConfirmationModal">Excluir</a>
+    	@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn	btn-info" })				
+    </div>
+
+    
+    
+    			
+    @*  Implementação antes do uso da janela modal
+        <div class="panel-footer	panel-info">	
         @using (Html.BeginForm())
         {	
             @Html.AntiForgeryToken()
@@ -47,8 +57,41 @@
             <input type="submit" value="Sim" class="btn	btn-danger" />	
            @Html.ActionLink("Não", "Index", null, new { @class = "btn	btn-info" })
         }				
+    </div>*@
+</div>
+
+@*Início da Janela MModal do Boostrap*@
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-ELTEismiss="modal" aria-hidden="true">	
+                    &times;
+                </button>
+                <h4 class="modal-title">Confirmar Exclusão do Registro</h4>	
+            </div>
+            <div class="modal-body" >
+                <p>Você está prestes a	excluir	o produto @Model.Nome.ToUpper().</p>	
+                <br>
+                <p><strong>Tem certeza que deseja prosseguir?</strong></p>
+                
+                @using (Html.BeginForm("Delete", "Produto", FormMethod.Post, new { @id = "delete-form", role = "form" }))
+                {
+                    @Html.HiddenFor(p => p.ProdutoId)
+                    @Html.AntiForgeryToken()
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="$('#delete-form').submit();">Sim</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>	
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+
 @section ScriptPage	{
     <script type="text/javascript">
                 $(document).ready(function () {

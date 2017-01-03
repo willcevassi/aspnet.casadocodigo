@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Projeto01
+﻿namespace Projeto01
 {
     public class TODO
     {
