@@ -9,7 +9,7 @@ namespace Modelo.Cadastros
     {
         [Key]
         [Column("fabricante_id")]
-        public long FabricanteId { get; set; }
+        public long? FabricanteId { get; set; }
         [Required(ErrorMessage = "O Nome do Fabricante é obrigatório")]
         [Column("nome")]
         [StringLength(50,ErrorMessage = "Tamanho máximo de 50 caracteres excedido")]

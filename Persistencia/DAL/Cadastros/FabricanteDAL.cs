@@ -15,5 +15,31 @@ namespace Persistencia.DAL.Cadastros
         public IQueryable<Fabricante> ObterFabricantesClassificadosPorNome() {
             return context.Fabricantes.OrderBy(f => f.Nome);
         }
+
+        public void GravarFabricante(Fabricante fabricante)
+        {
+            if (fabricante.FabricanteId == null)
+            {
+                context.Fabricantes.Add(fabricante);
+            }
+            else
+            {
+                context.Entry(fabricante).State = System.Data.Entity.EntityState.Modified;
+            }
+            context.SaveChanges();
+        }
+
+        public Fabricante ObterFabricantePorId(long? id)
+        {
+            return context.Fabricantes.Find(id);
+        }
+
+        public Fabricante EliminarFabricantePorId(long? id)
+        {
+            Fabricante fabricante = ObterFabricantePorId(id);
+            context.Fabricantes.Remove(fabricante);
+            context.SaveChanges();
+            return fabricante;
+        }
     }
 }

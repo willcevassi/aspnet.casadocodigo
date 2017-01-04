@@ -8,12 +8,27 @@ using System.Threading.Tasks;
 
 namespace Servico.Cadastros
 {
-    class FabricanteServico
+    public class FabricanteServico
     {
         private FabricanteDAL fabricanteDAL = new FabricanteDAL();
         public IQueryable<Fabricante> ObterFabricantesClassificadosPorNome()
         {
             return fabricanteDAL.ObterFabricantesClassificadosPorNome();
+        }
+
+        public void GravarFabricante(Fabricante fabricante)
+        {
+            fabricanteDAL.GravarFabricante(fabricante);
+        }
+
+        public Fabricante ObterFabricantePorId(long? id)
+        {
+            return fabricanteDAL.ObterFabricantePorId(id);
+        }
+
+        public Fabricante EliminarFabricantePorId(long? id)
+        {
+            return fabricanteDAL.EliminarFabricantePorId(id);
         }
     }
 

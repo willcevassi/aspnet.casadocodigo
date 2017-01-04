@@ -1,8 +1,7 @@
 ﻿using Modelo.Tabelas;
-using System.Linq;
 using System.Web.Mvc;
-using Projeto01.Context;
 using System.Net;
+using Servico.Tabelas;
 
 namespace Projeto01.Controllers
 {
@@ -31,13 +30,15 @@ namespace Projeto01.Controllers
         //    }
         //};
 
+        
+        private CategoriaServico categoriaServico = new CategoriaServico();
 
-        private EFContext Context = new EFContext();
 
+            
         // GET: Categoria
         public ActionResult Index()
         {
-            return View(Context.Categorias.ToList());
+            return View(categoriaServico.ObterCategoriasClassificadasPorNome());
         }
 
         //Get:Categoria/Create
@@ -49,85 +50,75 @@ namespace Projeto01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Categoria categoria)
         {
-            if (categoria == null)
-            {
-                return HttpNotFound();     
-            }
-            Context.Categorias.Add(categoria);
-            Context.SaveChanges();
-            return RedirectToAction("Index");
+            return GravarCategoria(categoria);
         }
 
         public ActionResult Edit(long? id) {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Categoria categoria = Context.Categorias.Find(id);
-            if (categoria == null)
-            {
-                return HttpNotFound();
-            }
-            return View(categoria);
+            return ObterCategoriaPeloId(id);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Categoria categoria)
         {
-            if (ModelState.IsValid)
-            {
-                Context.Entry(categoria).State = System.Data.Entity.EntityState.Modified;
-                Context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(categoria);
-            
+            return GravarCategoria(categoria);
         }
 
         public ActionResult Details(long? id) {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Categoria categoria = Context.Categorias.Find(id);
-            if(categoria == null)
-            {
-                return HttpNotFound();
-            }
-            return View(categoria);
+            return ObterCategoriaPeloId(id);
         }
 
         public ActionResult Delete(long? id) {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Categoria categoria = Context.Categorias.Find(id);
-            if (categoria == null)
-            {
-                return HttpNotFound();
-            }
-            return View(categoria);
+            return ObterCategoriaPeloId(id);
         }
 
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long? id) {
+            try
+            {
+                Categoria categoria = categoriaServico.EliminarCategoriaPorId(id);
+                TempData["Message"] = "Categoria " + categoria.Nome.ToUpper() + " foi removida";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        private ActionResult GravarCategoria(Categoria categoria)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    categoriaServico.GravarCategoria(categoria);
+                    return RedirectToAction("Index");
+                }
+                return View(categoria);
+            }
+            catch
+            {
+                return View(categoria);
+            }
+        }
+
+        private ActionResult ObterCategoriaPeloId(long? id)
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categoria cat = Context.Categorias.Find(id); 
-            if (cat == null)
+            Categoria   categoria = categoriaServico.ObterCategoriaPorId((long)id);
+            if (categoria == null)
             {
-                return HttpNotFound();    
+                return HttpNotFound();
             }
-            Context.Categorias.Remove(cat);
-            Context.SaveChanges();
-            return RedirectToAction("Index");
+            return View(categoria);
         }
-
     }
 }

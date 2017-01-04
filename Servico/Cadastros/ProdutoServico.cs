@@ -23,10 +23,10 @@ namespace Servico.Cadastros
         {
             produtoDAL.GravarProduto(produto);
         }
-        public Produto EliminarProdutoPorId(long id)
+        public Produto EliminarProdutoPorId(long? id)
         {
             return produtoDAL.EliminarProdutoPorId(id);
         }
-
+        
     }
 }

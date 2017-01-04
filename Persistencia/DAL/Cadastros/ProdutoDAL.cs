@@ -14,7 +14,7 @@ namespace Persistencia.DAL.Cadastros
             return context.Produtos.Include(c => c.Categoria).Include(f => f.Fabricante).OrderBy(n => n.Nome);
         }
 
-        public Produto ObterProdutoPorId(long id)
+        public Produto ObterProdutoPorId(long? id)
         {
             return context.Produtos.Include(c => c.Categoria).Include(f => f.Fabricante).Where(p => p.ProdutoId == id).First();
         }
@@ -32,7 +32,7 @@ namespace Persistencia.DAL.Cadastros
         }
 
 
-        public Produto EliminarProdutoPorId(long id)
+        public Produto EliminarProdutoPorId(long? id)
         {
             Produto produto = ObterProdutoPorId(id);
             context.Produtos.Remove(produto);

@@ -394,6 +394,10 @@
       <Project>{4f0257aa-fc2f-41e1-b1d6-1a4444335a85}</Project>
       <Name>Modelo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Servico\Servico.csproj">
+      <Project>{2e894618-4733-480e-a344-9da8a00039be}</Project>
+      <Name>Servico</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Context\" />

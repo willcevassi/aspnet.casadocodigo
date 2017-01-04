@@ -1,45 +1,35 @@
-﻿using Projeto01.Context;
-using Modelo.Cadastros;
-using System;
-using System.Collections.Generic;
+﻿using Modelo.Cadastros;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Servico.Tabelas;
+using Servico.Cadastros;
 
 namespace Projeto01.Controllers
 {
     public class ProdutoController : Controller
     {
-        private EFContext Contexto = new EFContext();
+        private ProdutoServico produtoServico = new ProdutoServico();
+        private FabricanteServico fabricanteServico = new FabricanteServico();
+        private CategoriaServico categoriaServico = new CategoriaServico();
 
 
         // GET: Produto
         public ActionResult Index()
         {
-            return View(Contexto.Produtos.OrderBy(P => P.Nome));
+            return View(produtoServico.ObterProdutosClassificadosPorNome());
         }
 
         // GET: Produto/Details/5
         public ActionResult Details(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Produto produto = Contexto.Produtos.Where(p => p.ProdutoId == id).First();
-            if (produto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(produto);
+            return ObterProdutoPeloId(id);
         }
 
         // GET: Produto/Create
         public ActionResult Create()
         {
-            ViewBag.categoriaId = new SelectList(Contexto.Categorias.OrderBy(c => c.Nome),"CategoriaId","Nome");
-            ViewBag.fabricanteId = new SelectList(Contexto.Fabricantes.OrderBy(c => c.Nome), "FabricanteId", "Nome");
+            PopularViewBag();
             return View();
         }
 
@@ -48,69 +38,28 @@ namespace Projeto01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Produto produto)
         {
-            if (produto == null)
-            {
-                return HttpNotFound();     
-            }
-
-            Contexto.Produtos.Add(produto);
-            Contexto.SaveChanges();
-            TempData["Message"] = "Produto	" + produto.Nome.ToUpper() + "	incluído com sucesso";
-            return RedirectToAction("Index");
+            return GravarProduto(produto);
         }
 
         // GET: Produto/Edit/5
         public ActionResult Edit(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Produto produto = Contexto.Produtos.Find(id);
-            ViewBag.CategoriaId = new SelectList(Contexto.Categorias.OrderBy(b => b.Nome), "CategoriaId", "Nome", produto.CategoriaId);
-            ViewBag.FabricanteId = new SelectList(Contexto.Fabricantes.OrderBy(b => b.Nome), "FabricanteId", "Nome", produto.FabricanteId);
-           
-            if (produto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(produto);
+            PopularViewBag(produtoServico.ObterProdutoPorId((long)id));
+            return ObterProdutoPeloId(id);
         }
 
         // POST: Produto/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Produto produto)
         {
-            if (produto == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            if (ModelState.IsValid)
-            {
-                Contexto.Entry(produto).State = System.Data.Entity.EntityState.Modified;
-                Contexto.SaveChanges();
-                TempData["Message"] = "Produto	" + produto.Nome.ToUpper() + "	alterado com sucesso";
-                return RedirectToAction("Index");
-            }
-            return View(produto);
-                
-            
-
+            return GravarProduto(produto);
         }
 
         // GET: Produto/Delete/5
         public ActionResult Delete(long? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Produto produto = Contexto.Produtos.Find(id);
-            if (produto == null)
-            {
-                return HttpNotFound();     
-            }
-            return View(produto);
+            return ObterProdutoPeloId(id);
         }
 
         // POST: Produto/Delete/5
@@ -119,20 +68,64 @@ namespace Projeto01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long? id)
         {
+            try
+            {
+                Produto produto = produtoServico.EliminarProdutoPorId(id);
+                TempData["Message"] = "Produto	" + produto.Nome.ToUpper() + "	foi	removido";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        private ActionResult ObterProdutoPeloId(long? id)
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto toDelete = Contexto.Produtos.Find(id);
-            if (toDelete == null)
+            Produto produto = produtoServico.ObterProdutoPorId((long)id);
+            if (produto == null)
             {
                 return HttpNotFound();
             }
-            Contexto.Produtos.Remove(toDelete);
-            Contexto.SaveChanges();
-            //incluindo os dados do fabricante removida ao TEMPDATA para recuperação da View de Listagem (Index)
-            TempData["Message"] = "Produto	" + toDelete.Nome.ToUpper() + "	removido com sucesso";
-            return RedirectToAction("Index");
+            return View(produto);
+        }
+
+
+		private void PopularViewBag(Produto produto = null)
+        {
+            if (produto == null)
+            {
+                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(), "CategoriaId", "Nome");
+                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(), "FabricanteId", "Nome");
+            } else
+            {
+                ViewBag.CategoriaId = new SelectList(categoriaServico.ObterCategoriasClassificadasPorNome(), "CategoriaId", "Nome", produto.CategoriaId);
+                ViewBag.FabricanteId = new SelectList(fabricanteServico.ObterFabricantesClassificadosPorNome(), "FabricanteId", "Nome", produto.FabricanteId);
+            }
+        }
+
+
+        private ActionResult GravarProduto(Produto produto)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    produtoServico.GravarProduto(produto);
+                    return RedirectToAction("Index");
+                }
+                return View(produto);
+            }
+            catch
+            {
+                return View(produto);
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Modelo.Tabelas
     {
         [Key]
         [Column("categoria_id",Order = 0)]
-        public long CategoriaId { get; set; }
+        public long? CategoriaId { get; set; }
         [Column("Nome",Order = 1)]
         [StringLength(80,ErrorMessage = "Tammanho máximo de 80 caracteres excedido.")]
         [Required(ErrorMessage = "O Nome da categoria é obrigatório")]

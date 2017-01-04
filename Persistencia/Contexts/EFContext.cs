@@ -16,7 +16,7 @@ namespace Persistencia.Contexts
         public EFContext() : base("Asp_Net_MVC_CS")
         {
             Database.SetInitializer<EFContext>(
-                new DropCreateDatabaseIfModelChanges<EFContext>()
+                new DropCreateDatabaseAlways<EFContext>()
             );
         }
 
