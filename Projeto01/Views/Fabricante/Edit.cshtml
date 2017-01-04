@@ -1,7 +1,7 @@
-﻿@model	Projeto01.Models.Produto
+﻿@model	Projeto01.Models.Fabricante
 @{				
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Editar PRODUTO"; 
+    ViewBag.Title = "Editar FABRICANTE"; 
 }
 
 @using (Html.BeginForm())
@@ -9,11 +9,12 @@
     @Html.AntiForgeryToken()
     <div class="panel	panel-primary">
         <div class="panel-heading">	
-            Editar PRODUTO
+            Editar FABRICANTE
         </div>
     	<div class="panel-body">
             <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })																@Html.HiddenFor(model => model.FabricanteId)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })																
+                @Html.HiddenFor(model => model.FabricanteId)
                 <div class="form-group">	
                     @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label	col-md-2" })	
                 <div class="col-md-10">																								
@@ -38,7 +39,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('li').removeClass("active");
-            $('#liProdutos').addClass("active");
+            $('#liFabricantes').addClass("active");
         });
     </script> 
 }

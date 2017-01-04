@@ -1,37 +1,153 @@
-﻿@model Projeto01.Models.Categoria
-
+﻿@model	Projeto01.Models.Categoria
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Excluir CATEGORIA";
+}
+<div class="panel	panel-primary">
+    <div class="panel-heading">
+        Dados da CATEGORIA
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="">@Html.DisplayNameFor(model => model.Nome)</label>
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon	glyphicon-text-background"></i>
+                </span>
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            </div>        
+        </div>
+    </div>
+    <div class="panel-footer	panel-info">
+        <a href="#" class="btn	btn-danger" data-toggle="modal" data-target="#deleteConfirmationModal">Excluir</a>
+        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn	btn-info" })
+    </div>
+</div>
+
+@*Início da Janela MModal do Boostrap*@
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">Confirmar Exclusão do Registro</h4>
+            </div>
+            <div class="modal-body">
+                <p>Você está prestes a	excluir a categegoria @Model.Nome.ToUpper().</p>
+                <br>
+                <p><strong>Tem certeza que deseja prosseguir?</strong></p>
+
+                @using (Html.BeginForm("Delete", "Categoria", FormMethod.Post, new { @id = "delete-form", role = "form" }))
+                {
+                    @Html.HiddenFor(p => p.CategoriaId)
+                    @Html.AntiForgeryToken()
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="$('#delete-form').submit();">Sim</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section ScriptPage	{
+    <script type="text/javascript">
+                $(document).ready(function () {
+                    $('li').removeClass("active");
+                    $('#liCategorias').addClass("active");
+                });
+    </script>
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Excluir</title>
-</head>
-<body>
-    <h3>Você tem certeza que deseja exluir este registro?</h3>
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>    
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>    
-        </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Excluir" class="btn btn-default" /> |
-                @Html.ActionLink("Voltar para lista", "Index")
-            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @* Implementação Original
+
+            @model Projeto01.Models.Categoria
+
+        @{
+            Layout = null;
         }
-    </div>
-</body>
-</html>
+
+        <!DOCTYPE html>
+
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+            <title>Excluir</title>
+        </head>
+        <body>
+            <h3>Você tem certeza que deseja exluir este registro?</h3>
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nome)
+                    </dd>
+                </dl>
+
+                @using (Html.BeginForm()) {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Excluir" class="btn btn-default" /> |
+                        @Html.ActionLink("Voltar para lista", "Index")
+                    </div>
+                }
+            </div>
+        </body>
+        </html>*@

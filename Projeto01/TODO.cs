@@ -2,10 +2,7 @@
 {
     public class TODO
     {
-        //TODO: Implementar as VIEWS de Categoria utilizando bootstrap.
 
-        //TODO: Implementar a parte do "INCLUDE" no Controller de Produtos.
-
-        //TODO: Implementar Modal para exclusao de Categorias e Fabricantes.
+        //TODO: Estudar mais sobre o uso do INCLUDE pelo EntityFramework, tanto seu uso dentro de métodos como declarado diretamente na chamada das Actions do MVC.
     }
 }

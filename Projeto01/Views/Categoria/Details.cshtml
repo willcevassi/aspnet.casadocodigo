@@ -1,4 +1,78 @@
-﻿@model Projeto01.Models.Categoria
+﻿@model	Projeto01.Models.Categoria
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Detalhes da CATEGORIA";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Detalhes da CATEGORIA
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome)
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon	glyphicon-text-background"></i>
+                </span>
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer panel-info">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.CategoriaId }, new { @class = "btn	btn-success" })
+        @Html.ActionLink("Voltar", "Index", null, new { @class = "btn	btn-info" })        
+    </div>
+</div>
+
+@Html.Partial("~/Views/Produto/_PorCategoria.cshtml", Model.Produtos.ToList())
+
+@section ScriptPage	{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('li').removeClass("active");
+            $('#liCategorias').addClass("active");
+        });
+    </script>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@model Projeto01.Models.Categoria
 
 @{
     Layout = null;
@@ -28,4 +102,4 @@
         @Html.ActionLink("Voltar para lista", "Index")
     </p>
 </body>
-</html>
+</html>*@

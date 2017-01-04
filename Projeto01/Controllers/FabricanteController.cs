@@ -78,8 +78,11 @@ namespace Projeto01.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Fabricante  fabricante = contexto.Fabricantes.Find(id);
-            //Exemplo: var alunos = db.Alunos.Include(a => a.Professor);
-            //var fabricante = contexto.Fabricantes.Include("Produto.Fabricante").Where(f => f.FabricanteId == id).First();
+            //Exemplo: var alunos = db.Alunos.Include(a => a.Professor); Inclui uma relação direta com o atributo professor
+
+            //Para utilizar o recurso Include e também o Linq (Where) é necessário que o objeto seja instanciado com a palavra
+            //reservada "var", pois ela implementa a interface IQuerible, obrigatória para tudo funcione.
+
             var fabricante = contexto.Fabricantes.Include("Produtos.Categoria").Where(f => f.FabricanteId == id).First();
             if (fabricante == null)
             {
