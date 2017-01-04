@@ -2,6 +2,7 @@
 using Modelo.Cadastros;
 using Modelo.Tabelas;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Persistencia.Migrations;
 
 namespace Persistencia.Contexts
 {
@@ -15,9 +16,7 @@ namespace Persistencia.Contexts
 
         public EFContext() : base("Asp_Net_MVC_CS")
         {
-            Database.SetInitializer<EFContext>(
-                new DropCreateDatabaseAlways<EFContext>()
-            );
+            Database.SetInitializer<EFContext>(new MigrateDatabaseToLatestVersion<EFContext, Configuration>());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
