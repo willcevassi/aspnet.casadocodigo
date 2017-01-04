@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
-using Projeto01.Models;
+using Modelo.Cadastros;
+using Modelo.Tabelas;
 
 namespace Projeto01.Context
 {

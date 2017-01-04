@@ -1,8 +1,5 @@
-﻿using Projeto01.Models;
-using System;
-using System.Collections.Generic;
+﻿using Modelo.Tabelas;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Projeto01.Context;
 using System.Net;

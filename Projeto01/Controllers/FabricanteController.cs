@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Projeto01.Context;
-using Projeto01.Models;
+using Modelo.Cadastros;
 using System.Net;
 
 namespace Projeto01.Controllers
