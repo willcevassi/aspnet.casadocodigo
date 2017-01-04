@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Modelo.Cadastros
 {
-    [Table("fabricantes")]
     public class Fabricante
     {
         [Key]

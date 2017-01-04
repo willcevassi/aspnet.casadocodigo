@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Modelo.Tabelas
 {
-    [Table("categorias")]
     public class Categoria
     {
         [Key]

@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Modelo.Cadastros
 {
-    [Table("produtos")]
     public class Produto
     {
         [Key]
@@ -14,15 +13,14 @@ namespace Modelo.Cadastros
         public long? ProdutoId { get; set; }
         [Column("nome_prouto")]
         [Required(ErrorMessage = "O nome do Produto é Obrigatório")]
-        [StringLength(100,ErrorMessage = "O nome do produto deve ter no mímino 10 catacteres",MinimumLength =10)]
+        [StringLength(100,ErrorMessage = "O nome do produto deve ter no mímino 5 catacteres",MinimumLength = 5)]
         public string Nome { get; set; }
 
         [DisplayName("Data	de	Cadastro")]
         [Required(ErrorMessage = "Informe a	data de	cadastro do	produto")]
+        [DataType(DataType.Date)]
         public DateTime? DataCadastro { get; set; }
-
-
-
+        
         [Column("fabricante_id")]
         public long? FabricanteId { get; set; }
         
