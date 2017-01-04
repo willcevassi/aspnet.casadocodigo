@@ -357,7 +357,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Context\EFContext.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\FabricanteController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
@@ -397,6 +396,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Context\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

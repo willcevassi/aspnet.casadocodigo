@@ -9,7 +9,7 @@ namespace Modelo.Cadastros
     {
         [Key]
         [Column("produto_id", Order = 0)]
-        public long ProdutoId { get; set; }
+        public long? ProdutoId { get; set; }
         [Column("nome_prouto")]
         [Required(ErrorMessage = "O nome do Produto é Obrigatório")]
         public string Nome { get; set; }
