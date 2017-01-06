@@ -263,6 +263,8 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Areas\Tabelas\Views\web.config" />
+    <Content Include="Areas\Cadastros\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -348,18 +350,20 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\Categoria\Create.cshtml" />
-    <Content Include="Views\Categoria\Edit.cshtml" />
-    <Content Include="Views\Categoria\Details.cshtml" />
-    <Content Include="Views\Categoria\Delete.cshtml" />
-    <Content Include="Views\Fabricante\Index.cshtml" />
-    <Content Include="Views\Fabricante\Create.cshtml" />
+    <Content Include="Areas\Tabelas\Views\Categoria\Create.cshtml" />
+    <Content Include="Areas\Tabelas\Views\Categoria\Edit.cshtml" />
+    <Content Include="Areas\Tabelas\Views\Categoria\Details.cshtml" />
+    <Content Include="Areas\Tabelas\Views\Categoria\Delete.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Fabricante\Index.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Fabricante\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CategoriaController.cs" />
-    <Compile Include="Controllers\FabricanteController.cs" />
-    <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Areas\Cadastros\CadastrosAreaRegistration.cs" />
+    <Compile Include="Areas\Tabelas\TabelasAreaRegistration.cs" />
+    <Compile Include="Areas\Tabelas\Controllers\CategoriaController.cs" />
+    <Compile Include="Areas\Cadastros\Controllers\FabricanteController.cs" />
+    <Compile Include="Areas\Cadastros\Controllers\ProdutoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -369,20 +373,20 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Categoria\Index.cshtml" />
+    <Content Include="Areas\Tabelas\Views\Categoria\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Fabricante\Edit.cshtml" />
-    <Content Include="Views\Fabricante\Details.cshtml" />
-    <Content Include="Views\Fabricante\Delete.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Fabricante\Edit.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Fabricante\Details.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Fabricante\Delete.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Produto\Index.cshtml" />
-    <Content Include="Views\Produto\Create.cshtml" />
-    <Content Include="Views\Produto\Delete.cshtml" />
-    <Content Include="Views\Produto\Details.cshtml" />
-    <Content Include="Views\Produto\Edit.cshtml" />
-    <Content Include="Views\Produto\_PorFabricante.cshtml" />
-    <Content Include="Views\Produto\_PorCategoria.cshtml" />
-    <Content Include="Views\Produto\_PartialEditContentPanel.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\Index.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\Create.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\Delete.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\Details.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\Edit.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\_PorFabricante.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\_PorCategoria.cshtml" />
+    <Content Include="Areas\Cadastros\Views\Produto\_PartialEditContentPanel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -401,7 +405,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Cadastros\Models\" />
+    <Folder Include="Areas\Cadastros\Views\Shared\" />
+    <Folder Include="Areas\Tabelas\Models\" />
+    <Folder Include="Areas\Tabelas\Views\Shared\" />
     <Folder Include="Context\" />
+    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

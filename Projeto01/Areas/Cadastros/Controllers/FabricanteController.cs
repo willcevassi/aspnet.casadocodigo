@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Modelo.Cadastros;
 using System.Net;
 using Servico.Cadastros;
 
-namespace Projeto01.Controllers
+namespace Projeto01.Areas.Cadastros.Controllers
 {
     public class FabricanteController : Controller
     {

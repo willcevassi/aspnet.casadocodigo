@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Servico.Tabelas;
 using Servico.Cadastros;
 
-namespace Projeto01.Controllers
+namespace Projeto01.Areas.Cadastros.Controllers
 {
     public class ProdutoController : Controller
     {
