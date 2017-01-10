@@ -14,6 +14,8 @@ namespace Persistencia.Contexts
 
         public DbSet<Produto> Produtos { get; set; }
 
+        public DbSet<Cliente> Clientes { get; set; }
+
         public EFContext() : base("Asp_Net_MVC_CS")
         {
             Database.SetInitializer<EFContext>(new MigrateDatabaseToLatestVersion<EFContext, Configuration>());

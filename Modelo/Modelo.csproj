@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cadastros\Cliente.cs" />
     <Compile Include="Cadastros\Fabricante.cs" />
     <Compile Include="Cadastros\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
